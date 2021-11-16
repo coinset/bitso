@@ -42,7 +42,7 @@ jobs:
           deno-version: ${{ matrix.deno }}
 
       - name: Test
-        run: deno test
+        run: deno test --allow-net
 
   release:
     needs: [lint, test]

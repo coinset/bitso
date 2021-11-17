@@ -1,3 +1,10 @@
+# [1.0.0-beta.3](https://github.com/coinset/bitso/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-11-17)
+
+
+### Bug Fixes
+
+* throw error when status is abnormal ([5e2c92e](https://github.com/coinset/bitso/commit/5e2c92e680f1cf0a6b30c1ef6df9eea439c108c4))
+
 # [1.0.0-beta.2](https://github.com/coinset/bitso/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-11-17)
 
 

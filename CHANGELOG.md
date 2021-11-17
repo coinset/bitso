@@ -1,3 +1,10 @@
+# [1.0.0-beta.4](https://github.com/coinset/bitso/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-11-17)
+
+
+### Bug Fixes
+
+* throw parsed error message ([a5abcd4](https://github.com/coinset/bitso/commit/a5abcd44d7f6e135108ca8eb89b7a5069a6b4b95))
+
 # [1.0.0-beta.3](https://github.com/coinset/bitso/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-11-17)
 
 

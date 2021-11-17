@@ -65,8 +65,11 @@ async function fetchTicker(
 
   url.searchParams.set("book", book);
   const res = await fetch(url.toString());
-
   const text = await res.text();
+
+  if (!res.ok) {
+    throw Error(text);
+  }
 
   return JSON.parse(text, (key, value) => {
     if (

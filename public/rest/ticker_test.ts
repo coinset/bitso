@@ -1,6 +1,12 @@
 // deno-lint-ignore-file camelcase
 import { fetchTicker } from "./ticker.ts";
-import { assert, isBoolean, isNumber, isObject } from "../../dev_deps.ts";
+import {
+  assert,
+  isBoolean,
+  isDate,
+  isNumber,
+  isObject,
+} from "../../dev_deps.ts";
 import { ALL_PAIRS } from "../../constants.ts";
 Deno.test({
   name: "fetchTicker",
@@ -23,6 +29,6 @@ Deno.test({
     assert(isNumber(vwap));
     assert(isNumber(ask));
     assert(isNumber(bid));
-    assert(created_at instanceof Date);
+    assert(isDate(created_at));
   },
 });

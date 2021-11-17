@@ -3,6 +3,7 @@ import { BASE_URL, fetch } from "../../constants.ts";
 import { TICKER } from "./constants.ts";
 import { isString } from "https://deno.land/x/isx@v1.0.0-beta.6/mod.ts";
 import { BitsoPair } from "../../constants.ts";
+import { parseError } from "../parse.ts";
 
 type TickerOptions = {
   book: BitsoPair | (string & {});
@@ -58,6 +59,9 @@ type TickerResponse = {
   };
 };
 
+/**
+ * @throws Error - Network Error, Internal Error
+ */
 async function fetchTicker(
   { book }: TickerOptions,
 ): Promise<TickerResponse> {
@@ -68,7 +72,8 @@ async function fetchTicker(
   const text = await res.text();
 
   if (!res.ok) {
-    throw Error(text);
+    const { error } = parseError(text);
+    throw Error(error.message);
   }
 
   return JSON.parse(text, (key, value) => {

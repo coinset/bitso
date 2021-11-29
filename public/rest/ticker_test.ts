@@ -1,34 +1,29 @@
 // deno-lint-ignore-file camelcase
 import { fetchTicker } from "./ticker.ts";
-import {
-  assert,
-  isBoolean,
-  isDate,
-  isNumber,
-  isObject,
-} from "../../dev_deps.ts";
+import { expect, test } from "../../dev_deps.ts";
 import { ALL_PAIRS } from "../../constants.ts";
-Deno.test({
+
+test({
   name: "fetchTicker",
   fn: async () => {
     const { success, payload } = await fetchTicker({
       book: "btc_usd",
     });
 
-    assert(isBoolean(success));
-    assert(isObject(payload));
+    expect(success).toBeBoolean();
+    expect(payload).toBeObject();
 
     const { book, volume, high, last, low, vwap, ask, bid, created_at } =
       payload;
 
-    assert(ALL_PAIRS.includes(book as never));
-    assert(isNumber(volume));
-    assert(isNumber(high));
-    assert(isNumber(last));
-    assert(isNumber(low));
-    assert(isNumber(vwap));
-    assert(isNumber(ask));
-    assert(isNumber(bid));
-    assert(isDate(created_at));
+    expect(book).toBeOneOf(ALL_PAIRS);
+    expect(volume).toBeNumber();
+    expect(high).toBeNumber();
+    expect(last).toBeNumber();
+    expect(low).toBeNumber();
+    expect(vwap).toBeNumber();
+    expect(ask).toBeNumber();
+    expect(bid).toBeNumber();
+    expect(created_at).toBeValidDate();
   },
 });

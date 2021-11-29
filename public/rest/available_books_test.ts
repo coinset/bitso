@@ -1,55 +1,52 @@
 import { fetchAvailableBooks } from "./available_books.ts";
-import { assert, isBoolean, isNumber, isObject } from "../../dev_deps.ts";
+import { expect, test } from "../../dev_deps.ts";
 import { ALL_PAIRS } from "../../constants.ts";
-Deno.test({
+
+test({
   name: "fetchAvailableBooks",
   fn: async () => {
     const { success, payload } = await fetchAvailableBooks();
 
-    assert(isBoolean(success));
-    assert(Array.isArray(payload));
+    expect(success).toBeBoolean();
+    expect(payload).toBeArray();
 
-    payload.forEach(
-      (
-        {
-          book,
-          minimum_amount,
-          maximum_amount,
-          minimum_price,
-          maximum_price,
-          minimum_value,
-          maximum_value,
-          tick_size,
-          default_chart,
-          fees,
-        },
-      ) => {
-        assert(ALL_PAIRS.includes(book as never));
-        assert(isNumber(minimum_amount));
-        assert(isNumber(maximum_amount));
-        assert(isNumber(minimum_price));
-        assert(isNumber(maximum_price));
-        assert(isNumber(minimum_value));
-        assert(isNumber(maximum_value));
-        assert(isNumber(tick_size));
-        assert(["candle", "depth"].includes(default_chart));
-        assert(isObject(fees));
+    payload.forEach(({
+      book,
+      minimum_amount,
+      maximum_amount,
+      minimum_price,
+      maximum_price,
+      minimum_value,
+      maximum_value,
+      tick_size,
+      default_chart,
+      fees,
+    }) => {
+      expect(book).toBeOneOf(ALL_PAIRS);
+      expect(minimum_amount).toBeNumber();
+      expect(maximum_amount).toBeNumber();
+      expect(minimum_price).toBeNumber();
+      expect(maximum_price).toBeNumber();
+      expect(minimum_value).toBeNumber();
+      expect(maximum_value).toBeNumber();
+      expect(tick_size).toBeNumber();
+      expect(default_chart).toBeOneOf(["candle", "depth"]);
+      expect(fees).toBeObject();
 
-        // deno-lint-ignore camelcase
-        const { flat_rate, structure } = fees;
-        assert(isObject(flat_rate));
+      // deno-lint-ignore camelcase
+      const { flat_rate, structure } = fees;
+      expect(flat_rate).toBeObject();
 
-        const { maker, taker } = flat_rate;
-        assert(isNumber(maker));
-        assert(isNumber(taker));
-        assert(Array.isArray(structure));
+      const { maker, taker } = flat_rate;
+      expect(maker).toBeNumber();
+      expect(taker).toBeNumber();
+      expect(structure).toBeArray();
 
-        structure.forEach(({ maker, taker, volume }) => {
-          assert(isNumber(maker));
-          assert(isNumber(taker));
-          assert(isNumber(volume));
-        });
-      },
-    );
+      structure.forEach(({ maker, taker, volume }) => {
+        expect(maker).toBeNumber();
+        expect(taker).toBeNumber();
+        expect(volume).toBeNumber();
+      });
+    });
   },
 });
